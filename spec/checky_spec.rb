@@ -28,8 +28,8 @@ RSpec.describe Checky do
   context 'version' do
     it 'matches' do
       expect(described_class.check do
-        binary command
         version '~> 1.0'
+        binary command
       end).to be_truthy
     end
 

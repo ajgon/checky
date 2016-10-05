@@ -14,10 +14,16 @@ Checky::Validators.constants.each do |child|
   Checky::Validators::All.include(mod)
 
   mod.send(:attr_accessor, :storage)
-  mod.send(:module_function, :check, :storage, :'storage=')
-  Checky::Validators::All.send(:define_method, "run_#{child.downcase}") do |*args, &block|
+  mod.send(:module_function, :populate, :check, :storage, :'storage=')
+
+  Checky::Validators::All.send(:define_method, "populate_#{child.downcase}") do |*args, &block|
     validator = Object.const_get("Checky::Validators::#{child}")
-    validator.storage = args.shift
-    OpenStruct.new(mod.check(*args, &block))
+    @storage.send("#{child.downcase}=", validator.populate(*args, &block))
+  end
+
+  Checky::Validators::All.send(:define_method, "check_#{child.downcase}") do
+    validator = Object.const_get("Checky::Validators::#{child}")
+    validator.storage = @storage
+    validator.check
   end
 end

@@ -3,13 +3,12 @@ module Checky
   module Validators
     module Binary
       # :reek:UtilityFunction
-      def check(command)
-        binary_path = command.which
+      def populate(command)
+        command.which.to_s
+      end
 
-        {
-          success: !binary_path.to_s.empty?,
-          data: binary_path
-        }
+      def check
+        !storage.binary.empty?
       end
     end
   end

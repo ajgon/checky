@@ -13,6 +13,9 @@ module Checky
     def check(&block)
       @self_before_instance_eval = eval 'self', block.binding
       instance_eval(&block)
+      @storage.to_h.keys.all? do |validator_name|
+        send("check_#{validator_name}")
+      end
     end
 
     # :nocov:
@@ -24,9 +27,8 @@ module Checky
 
     # rubocop:disable Style/MethodMissing
     def method_missing(method, *args, &block)
-      raise Checky::Exception unless methods.include?("run_#{method}".to_sym)
-      @storage.send("#{method}=", send("run_#{method}", @storage, *args, &block))
-      @storage.send(method).success
+      raise Checky::Exception unless methods.include?("populate_#{method}".to_sym)
+      @storage.send("#{method}=", send("populate_#{method}", *args, &block))
     rescue Checky::Exception
       @self_before_instance_eval.send method, *args, &block if @self_before_instance_eval.present?
     end
