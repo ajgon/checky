@@ -1,0 +1,56 @@
+---
+PreCommit:
+  AuthorEmail:
+    enabled: true
+  AuthorName:
+    enabled: true
+  BrokenSymlinks:
+    enabled: true
+  BundleAudit:
+    enabled: true
+  BundleCheck:
+    enabled: true
+  BundleOutdated:
+    enabled: true
+  CaseConflicts:
+    enabled: true
+  Fasterer:
+    enabled: true
+  HardTabs:
+    enabled: true
+  JsonSyntax:
+    enabled: true
+  LocalPathsInGemfile:
+    enabled: true
+  Mdl:
+    enabled: true
+  MergeConflicts:
+    enabled: true
+  Reek:
+    enabled: true
+  RuboCop:
+    enabled: true
+  TrailingWhitespace:
+    enabled: true
+  TravisLint:
+    enabled: true
+  YamlSyntax:
+    enabled: true
+
+PrePush:
+  RSpec:
+    enabled: true
+
+CommitMsg:
+  CapitalizedSubject:
+    enabled: false
+  Commitplease:
+    enabled: true
+  HardTabs:
+    enabled: true
+  SpellCheck:
+    enabled: true
+  TextWidth:
+    enabled: true
+    max_subject_width: 100
+    max_body_width: 100

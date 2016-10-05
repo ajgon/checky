@@ -1,0 +1,35 @@
+{
+  "name": "checky",
+  "version": "0.1.0",
+  "description": "Dependencies checker for CLI tools",
+  "scripts": {
+    "test": "bundle exec rspec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajgon/checky.git"
+  },
+  "author": "Igor Rzegocki <igor@rzegocki.pl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ajgon/checky/issues"
+  },
+  "homepage": "https://github.com/ajgon/checky#readme",
+  "devDependencies": {
+    "commitizen": "^2.8.6",
+    "commitplease": "^2.7.5",
+    "cz-conventional-changelog": "^1.2.0"
+  },
+  "commitplease": {
+    "style": "angular",
+    "types": [
+      "feat", "fix", "docs", "style", "refactor", "perf", "test", "chore"
+    ],
+    "scope": "\\S+.*"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
