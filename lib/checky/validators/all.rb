@@ -13,8 +13,11 @@ Checky::Validators.constants.each do |child|
   next unless mod.is_a?(Module)
   Checky::Validators::All.include(mod)
 
-  mod.send(:module_function, :check)
+  mod.send(:attr_accessor, :storage)
+  mod.send(:module_function, :check, :storage, :'storage=')
   Checky::Validators::All.send(:define_method, "run_#{child.downcase}") do |*args, &block|
-    Checky::Storage.send("#{child.downcase}=", OpenStruct.new(mod.check(*args, &block)))
+    validator = Object.const_get("Checky::Validators::#{child}")
+    validator.storage = args.shift
+    OpenStruct.new(mod.check(*args, &block))
   end
 end

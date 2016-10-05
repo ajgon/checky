@@ -3,26 +3,30 @@ module Checky
   class Checker
     include Checky::Validators::All
 
+    attr_reader :storage
+
     def initialize
+      @storage = OpenStruct.new
       @self_before_instance_eval = false
     end
 
     def check(&block)
-      @result = true
       @self_before_instance_eval = eval 'self', block.binding
       instance_eval(&block)
     end
 
+    # :nocov:
     # :reek:BooleanParameter
     def respond_to_missing?(method, _include_private = false)
       methods.include?("run_#{method}".to_sym)
     end
+    # :nocov:
 
     # rubocop:disable Style/MethodMissing
     def method_missing(method, *args, &block)
       raise Checky::Exception unless methods.include?("run_#{method}".to_sym)
-      send("run_#{method}", *args, &block)
-      Checky::Storage.send(method).success
+      @storage.send("#{method}=", send("run_#{method}", @storage, *args, &block))
+      @storage.send(method).success
     rescue Checky::Exception
       @self_before_instance_eval.send method, *args, &block if @self_before_instance_eval.present?
     end

@@ -7,6 +7,7 @@ SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
 ]
+SimpleCov.minimum_coverage 100
 SimpleCov.start
 require 'checky'
 

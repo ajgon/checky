@@ -9,7 +9,7 @@ module Checky
       end
 
       def version_string
-        command_path = Checky::Storage.binary.data
+        command_path = storage.binary.data
         command_output = Checky.run("#{command_path} --version").presence || Checky.run("#{command_path} -v").presence
         command_output[/[0-9]+(?:\.[0-9]+)+/]
       end
