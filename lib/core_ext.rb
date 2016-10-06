@@ -25,4 +25,13 @@ class String
     end
     bin_path ? File.join(bin_path, self) : nil
   end
+
+  # :reek:TooManyStatements
+  def underscore
+    return self unless self =~ /[A-Z-]|::/
+    word = to_s.gsub('::', '/')
+    word.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+    word.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
+    word.tr('-', '_').downcase
+  end
 end

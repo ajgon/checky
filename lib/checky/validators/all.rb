@@ -14,16 +14,20 @@ Checky::Validators.constants.each do |child|
   Checky::Validators::All.include(mod)
 
   mod.send(:attr_accessor, :storage)
-  mod.send(:module_function, :populate, :check, :storage, :'storage=')
-
-  Checky::Validators::All.send(:define_method, "populate_#{child.downcase}") do |*args, &block|
-    validator = Object.const_get("Checky::Validators::#{child}")
-    @storage.send("#{child.downcase}=", validator.populate(*args, &block))
+  mod.send(:module_function, :storage, :storage=)
+  %w(populate check).each do |method|
+    mod.send(:module_function, method) if mod.method_defined?(method)
   end
 
-  Checky::Validators::All.send(:define_method, "check_#{child.downcase}") do
+  Checky::Validators::All.send(:define_method, "populate_#{child.to_s.underscore}") do |*args, &block|
+    validator = Object.const_get("Checky::Validators::#{child}")
+    data = validator.respond_to?(:populate) ? validator.populate(*args, &block) : true
+    @storage.send("#{child.to_s.underscore}=", data)
+  end
+
+  Checky::Validators::All.send(:define_method, "check_#{child.to_s.underscore}") do
     validator = Object.const_get("Checky::Validators::#{child}")
     validator.storage = @storage
-    validator.check
+    validator.respond_to?(:check) ? validator.check : true
   end
 end

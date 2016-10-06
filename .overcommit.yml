@@ -1,5 +1,7 @@
 ---
 PreCommit:
+  ALL:
+    on_warn: fail
   AuthorEmail:
     enabled: true
   AuthorName:

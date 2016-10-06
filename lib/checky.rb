@@ -3,10 +3,16 @@ require 'ostruct'
 
 require 'core_ext'
 require 'checky/version'
-require 'checky/exception'
+require 'checky/exceptions'
 
-require 'checky/validators/binary'
-require 'checky/validators/version'
+validators = Dir[File.expand_path('../checky/validators/*.rb', __FILE__)].map do |file|
+  File.basename(file).sub(/\.rb$/, '')
+end
+validators.reject! { |file| file == 'all' }
+
+validators.each do |validator|
+  require "checky/validators/#{validator}"
+end
 require 'checky/validators/all'
 
 require 'checky/checker'

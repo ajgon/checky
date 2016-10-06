@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 module Checky
-  class Exception < RuntimeError
+  module Validators
+    module FailHard
+    end
   end
 end

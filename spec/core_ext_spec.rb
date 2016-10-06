@@ -144,5 +144,15 @@ RSpec.describe CoreExt do
         expect('dummy_command'.which).to be_nil
       end
     end
+
+    context 'underscore' do
+      it 'LoremIpsum' do
+        expect('LoremIpsum'.underscore).to eq 'lorem_ipsum'
+      end
+
+      it 'ABCD' do
+        expect('ABCD'.underscore).to eq 'abcd'
+      end
+    end
   end
 end

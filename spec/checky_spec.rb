@@ -40,4 +40,26 @@ RSpec.describe Checky do
       end).to be_falsey
     end
   end
+
+  context 'fail_hard' do
+    it 'fails' do
+      expect do
+        described_class.check do
+          binary command
+          version '~> 2.0'
+          fail_hard
+        end
+      end.to raise_error Checky::ValidationError
+    end
+
+    it 'does not fail' do
+      expect do
+        described_class.check do
+          binary command
+          version '~> 1.0'
+          fail_hard
+        end
+      end.not_to raise_error
+    end
+  end
 end

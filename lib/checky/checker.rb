@@ -13,9 +13,9 @@ module Checky
     def check(&block)
       @self_before_instance_eval = eval 'self', block.binding
       instance_eval(&block)
-      @storage.to_h.keys.all? do |validator_name|
-        send("check_#{validator_name}")
-      end
+      result = check_result
+      raise Checky::ValidationError if @storage.fail_hard && !result
+      result
     end
 
     # :nocov:
@@ -33,5 +33,13 @@ module Checky
       @self_before_instance_eval.send method, *args, &block if @self_before_instance_eval.present?
     end
     # rubocop:enable Style/MethodMissing
+
+    private
+
+    def check_result
+      @storage.to_h.keys.all? do |validator_name|
+        send("check_#{validator_name}")
+      end
+    end
   end
 end
