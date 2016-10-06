@@ -154,5 +154,15 @@ RSpec.describe CoreExt do
         expect('ABCD'.underscore).to eq 'abcd'
       end
     end
+
+    context 'satisfies_requirement?' do
+      it 'match' do
+        expect('1.3.12'.satisfies_requirement?('~> 1.3.0')).to be_truthy
+      end
+
+      it 'does not match' do
+        expect('2.3.12'.satisfies_requirement?('~> 1.3.0')).to be_falsey
+      end
+    end
   end
 end

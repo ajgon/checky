@@ -34,4 +34,10 @@ class String
     word.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
     word.tr('-', '_').downcase
   end
+
+  def satisfies_requirement?(requirement_string)
+    version = Gem::Version.new(self)
+    requirement = Gem::Requirement.new(requirement_string)
+    requirement.satisfied_by?(version)
+  end
 end

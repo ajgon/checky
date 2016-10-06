@@ -23,6 +23,14 @@ RSpec.describe Checky do
         binary command
       end).to be_falsey
     end
+
+    it 'works with block' do
+      expect(described_class.check do
+        binary command do
+          false
+        end
+      end).to be_falsey
+    end
   end
 
   context 'version' do
@@ -38,6 +46,15 @@ RSpec.describe Checky do
         binary command
         version '~> 2.0'
       end).to be_falsey
+    end
+
+    it 'works with block' do
+      expect(described_class.check do
+        binary command
+        version '~> 3.0' do
+          '3.0'.satisfies_requirement?(storage.version)
+        end
+      end).to be_truthy
     end
   end
 
