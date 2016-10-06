@@ -46,7 +46,7 @@ version '<version string>'
 
 Checks if the version of the binary matches the give `<version string>`. Version
 string follows [`Gem::Requirement`](http://ruby-doc.org/stdlib-2.3.1/libdoc/rubygems/rdoc/Gem/Requirement.html)
-restriction operators schema. Returns true if version matches.
+restriction operators schema. Returns `true` if version matches.
 
 **WARNING!** By default, this validator invokes `command --version` and
 `command -v` to check the versions. If this fails (for example, your command uses

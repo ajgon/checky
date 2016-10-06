@@ -13,9 +13,8 @@ module Checky
     def check(&block)
       @self_before_instance_eval = eval 'self', block.binding
       instance_eval(&block)
-      result = check_result
-      raise Checky::ValidationError if @storage.fail_hard && !result
-      result
+      with_hooks { check_result }
+      @storage.checky_result
     end
 
     # :nocov:
@@ -38,7 +37,7 @@ module Checky
     private
 
     def check_result
-      @storage.to_h.keys.reject { |key| key.to_s.start_with?('checky_') }.all? do |validator_name|
+      @storage.checky_result = active_validators.all? do |validator_name|
         block = @storage.checky_blocks[validator_name.to_sym]
         if block.present?
           instance_eval(&block)
@@ -46,6 +45,20 @@ module Checky
           send("check_#{validator_name}")
         end
       end
+    end
+
+    def active_validators
+      @storage.to_h.keys.reject { |key| key.to_s.start_with?('checky_') }
+    end
+
+    def with_hooks
+      fire_hook :before
+      yield if block_given?
+      fire_hook :after
+    end
+
+    def fire_hook(hook_name)
+      active_validators.each { |validator_name| send("#{hook_name}_#{validator_name}") }
     end
   end
 end

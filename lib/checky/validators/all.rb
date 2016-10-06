@@ -15,7 +15,7 @@ Checky::Validators.constants.each do |child|
 
   mod.send(:attr_accessor, :storage)
   mod.send(:module_function, :storage, :storage=)
-  %w(populate check).each do |method|
+  %w(populate check before after).each do |method|
     mod.send(:module_function, method) if mod.method_defined?(method)
   end
 
@@ -25,9 +25,11 @@ Checky::Validators.constants.each do |child|
     @storage.send("#{child.to_s.underscore}=", data)
   end
 
-  Checky::Validators::All.send(:define_method, "check_#{child.to_s.underscore}") do
-    validator = Object.const_get("Checky::Validators::#{child}")
-    validator.storage = @storage
-    validator.respond_to?(:check) ? validator.check : true
+  %w(check before after).each do |helper_method|
+    Checky::Validators::All.send(:define_method, "#{helper_method}_#{child.to_s.underscore}") do |*args, &block|
+      validator = Object.const_get("Checky::Validators::#{child}")
+      validator.storage = @storage
+      validator.respond_to?(helper_method) ? validator.send(helper_method, *args, &block) : true
+    end
   end
 end
