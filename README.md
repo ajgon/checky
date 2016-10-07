@@ -83,7 +83,8 @@ verbose
 
 When enabled, prints all validation info to STDOUT (success) or STDERR (failure).
 You can customize messages in other validator, with `.message(value)` method,
-where value is the parameter provided to the "messaging" validator.
+where value is the parameter provided to the "messaging" validator. If your
+project users `colorize` gem, the output status will be colorized.
 
 ## Passing blocks to validators
 

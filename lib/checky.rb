@@ -18,6 +18,8 @@ require 'checky/validators/all'
 require 'checky/checker'
 
 module Checky
+  attr_accessor :colorize
+
   def check(&block)
     Checker.new.check(&block)
   end
@@ -28,5 +30,14 @@ module Checky
   end
   # :nocov:
 
-  module_function :check, :run
+  module_function :check, :run, :colorize, :colorize=
 end
+
+# :nocov:
+begin
+  require 'colorize'
+  Checky.colorize = true
+rescue LoadError
+  Checky.colorize = false
+end
+# :nocov:

@@ -142,6 +142,7 @@ PLATFORMS
 DEPENDENCIES
   bundler-audit
   checky!
+  colorize
   coveralls
   fasterer
   mdl

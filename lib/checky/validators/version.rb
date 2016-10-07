@@ -18,6 +18,10 @@ module Checky
         command_output[/[0-9]+(?:\.[0-9]+)+/]
       end
 
+      def message(value)
+        "Checking #{File.basename(storage.binary)} version against #{value}"
+      end
+
       module_function :version_string
     end
   end

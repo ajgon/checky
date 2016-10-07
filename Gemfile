@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'colorize'
+
 group :development do
   gem 'bundler-audit'
   gem 'fasterer'
