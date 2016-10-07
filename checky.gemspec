@@ -7,6 +7,7 @@ require 'checky/version'
 Gem::Specification.new do |gem|
   gem.name          = 'checky'
   gem.version       = Checky::VERSION
+  gem.licenses      = ['MIT']
   gem.authors       = ['Igor Rzegocki']
   gem.email         = ['igor@rzegocki.pl']
   gem.description   = 'Dependencies checker for CLI tools'
