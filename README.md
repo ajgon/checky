@@ -1,5 +1,11 @@
 # checky.gem
 
+[![Gem](https://img.shields.io/gem/v/checky.svg?maxAge=2592000)](https://github.com/ajgon/checky)
+[![Build Status](https://travis-ci.org/ajgon/checky.svg?branch=master)](https://travis-ci.org/ajgon/checky)
+[![Coverage Status](https://coveralls.io/repos/github/ajgon/checky/badge.svg?branch=master)](https://coveralls.io/github/ajgon/checky?branch=master)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![license](https://img.shields.io/github/license/ajgon/checky.svg?maxAge=2592000)](https://github.com/ajgon/checky/blob/master/LICENSE)
+
 Dependencies checker for CLI tools.
 
 ## Installation
@@ -110,4 +116,18 @@ Checky.check do
     puts storage.binary # => '/usr/bin/docker'
     puts storage.version # => '~> 1.0.0'
   end
+end
 ```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md)
+for details.
+
+## Author
+
+Author: [Igor Rzegocki](https://www.rzegocki.pl/) ([@ajgon](https://github.com/ajgon))
+
+## License
+
+License: [MIT](LICENSE)
