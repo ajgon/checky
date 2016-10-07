@@ -6,7 +6,7 @@ module Checky
     attr_reader :storage
 
     def initialize
-      @storage = OpenStruct.new(checky_blocks: {})
+      @storage = OpenStruct.new(checky_blocks: {}, checky_results: {})
       @self_before_instance_eval = false
     end
 
@@ -14,7 +14,7 @@ module Checky
       @self_before_instance_eval = eval 'self', block.binding
       instance_eval(&block)
       with_hooks { check_result }
-      @storage.checky_result
+      @storage.checky_final_result
     end
 
     # :nocov:
@@ -37,13 +37,13 @@ module Checky
     private
 
     def check_result
-      @storage.checky_result = active_validators.all? do |validator_name|
-        block = @storage.checky_blocks[validator_name.to_sym]
-        if block.present?
-          instance_eval(&block)
-        else
-          send("check_#{validator_name}")
-        end
+      @storage.checky_final_result = active_validators.all? do |validator_name|
+        block = @storage.checky_blocks[validator_name]
+        @storage.checky_results[validator_name] = if block.present?
+                                                    instance_eval(&block)
+                                                  else
+                                                    send("check_#{validator_name}")
+                                                  end
       end
     end
 

@@ -24,6 +24,7 @@ Checky.check do
   binary 'docker'
   version '~> 1.0'
   fail_hard
+  verbose
 end
 ```
 
@@ -73,6 +74,16 @@ fail_hard
 
 Normally, checky returns `true`/`false` depending on result of the check. With
 this flag in place, a `Checky::ValidationError` exception will be raised.
+
+### verbose
+
+```ruby
+verbose
+```
+
+When enabled, prints all validation info to STDOUT (success) or STDERR (failure).
+You can customize messages in other validator, with `.message(value)` method,
+where value is the parameter provided to the "messaging" validator.
 
 ## Passing blocks to validators
 

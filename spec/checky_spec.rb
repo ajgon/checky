@@ -79,4 +79,43 @@ RSpec.describe Checky do
       end.not_to raise_error
     end
   end
+
+  context 'verbose' do
+    it 'prints information with success' do
+      silence_streams do
+        expect do
+          described_class.check do
+            binary command
+            verbose
+          end
+        end.to output(
+          "Checking for #[InstanceDouble(dummy_command) (anonymous)]... OK\n"
+        ).to_stdout
+      end
+    end
+
+    it 'prints information with failure (stdout part)' do
+      silence_streams do
+        expect do
+          described_class.check do
+            binary command
+            version '~> 2.0'
+            verbose
+          end
+        end.to output("Checking for #[InstanceDouble(dummy_command) (anonymous)]... OK\n").to_stdout
+      end
+    end
+
+    it 'prints information with failure (stderr part)' do
+      silence_streams do
+        expect do
+          described_class.check do
+            binary command
+            version '~> 2.0'
+            verbose
+          end
+        end.to output("Checking version (~> 2.0)................................... FAIL\n").to_stderr
+      end
+    end
+  end
 end

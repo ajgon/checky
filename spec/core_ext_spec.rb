@@ -155,6 +155,12 @@ RSpec.describe CoreExt do
       end
     end
 
+    context 'classify' do
+      it 'lorem_ipsum' do
+        expect('lorem_ipsum'.classify).to eq 'LoremIpsum'
+      end
+    end
+
     context 'satisfies_requirement?' do
       it 'match' do
         expect('1.3.12'.satisfies_requirement?('~> 1.3.0')).to be_truthy

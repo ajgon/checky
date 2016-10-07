@@ -10,6 +10,11 @@ module Checky
       def check
         !storage.binary.empty?
       end
+
+      # :reek:UtilityFunction
+      def message(value)
+        "Checking for #{File.basename(value)}"
+      end
     end
   end
 end

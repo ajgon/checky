@@ -35,6 +35,12 @@ class String
     word.tr('-', '_').downcase
   end
 
+  def classify
+    sub(/^[a-z\d]*/, &:capitalize).gsub(%r{(?:_|(\/))([a-z\d]*)}i) do
+      "#{Regexp.last_match(1)}#{Regexp.last_match(2).capitalize}"
+    end.gsub('/', '::')
+  end
+
   def satisfies_requirement?(requirement_string)
     version = Gem::Version.new(self)
     requirement = Gem::Requirement.new(requirement_string)
