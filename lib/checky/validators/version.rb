@@ -14,7 +14,8 @@ module Checky
 
       def version_string
         command_path = storage.binary
-        command_output = Checky.run("#{command_path} --version").presence || Checky.run("#{command_path} -v").presence
+        command_output = Checky.run("#{command_path} --version 2>&1").presence ||
+                         Checky.run("#{command_path} -v 2>&1").presence
         command_output[/[0-9]+(?:\.[0-9]+)+/]
       end
 

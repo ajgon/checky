@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    checky (0.1.0)
+    checky (0.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -23,6 +23,7 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     colorize (0.8.1)
+    connection_pool (2.2.0)
     coveralls (0.8.15)
       json (>= 1.8, < 3)
       simplecov (~> 0.12.0)
@@ -66,7 +67,8 @@ GEM
     mixlib-config (2.2.4)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    net-http-persistent (2.9.4)
+    net-http-persistent (3.0.0)
+      connection_pool (~> 2.2)
     net-http-pipeline (1.0.1)
     overcommit (0.36.0)
       childprocess (~> 0.5.8)
@@ -104,7 +106,7 @@ GEM
     rubocop-rspec (1.7.0)
       rubocop (>= 0.42.0)
     ruby-progressbar (1.8.1)
-    ruby_parser (3.8.2)
+    ruby_parser (3.8.3)
       sexp_processor (~> 4.1)
     sexp_processor (4.7.0)
     simplecov (0.12.0)
