@@ -3,17 +3,13 @@ module Checky
   module Validators
     module Binary
       # :reek:UtilityFunction
-      def populate(command)
-        command.which.to_s
-      end
-
       def check
-        !storage.binary.empty?
+        !storage.binary.which.to_s.empty?
       end
 
       # :reek:UtilityFunction
-      def message(value)
-        "Checking for #{File.basename(value)}"
+      def message
+        "Checking for #{storage.binary}"
       end
     end
   end

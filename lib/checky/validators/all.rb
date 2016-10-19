@@ -21,7 +21,7 @@ Checky::Validators.constants.each do |child|
 
   Checky::Validators::All.send(:define_method, "populate_#{child.to_s.underscore}") do |*args, &block|
     validator = Object.const_get("Checky::Validators::#{child}")
-    data = validator.respond_to?(:populate) ? validator.populate(*args, &block) : true
+    data = validator.respond_to?(:populate) ? validator.populate(*args, &block) : (args.first || true)
     @storage.send("#{child.to_s.underscore}=", data)
   end
 

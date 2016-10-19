@@ -26,8 +26,8 @@ module Checky
 
         # :nocov:
         message = begin
-          mod.message(value)
-        rescue
+          mod.message
+        rescue NoMethodError
           "Checking #{key} (#{value})"
         end
         # :nocov:
