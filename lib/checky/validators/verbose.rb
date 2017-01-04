@@ -41,13 +41,11 @@ module Checky
       end
 
       def result_message(key)
-        result = storage.checky_results[key]
+        pastel = Checky.pastel
+        message = storage.checky_results[key] ? 'OK' : 'FAIL'
 
-        if Checky.colorize
-          result ? 'OK'.green : 'FAIL'.red
-        else
-          result ? 'OK' : 'FAIL'
-        end
+        return pastel.decorate(message, { 'OK' => :green, 'FAIL' => :red }[message]) if pastel
+        message
       end
 
       module_function :display_message, :build_message, :format_message, :result_message

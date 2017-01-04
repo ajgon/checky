@@ -22,8 +22,8 @@ gem 'checky'
 
 ## Usage
 
-Checky includes a simple DSL for various tasks, for example, to check for Docker
-version 1.x
+Checky includes a simple DSL for various tasks. For example, to check for Docker
+version 1.x:
 
 ```ruby
 Checky.check do
@@ -34,7 +34,7 @@ Checky.check do
 end
 ```
 
-The `binary` or `version` concepts are call validators. In order to pass the check,
+The `binary` or `version` concepts are called validators. In order to pass the check,
 all validators must return `true`.
 
 ## Validators
@@ -46,6 +46,8 @@ binary '<command name as it is invoked>'
 ```
 
 Checks for existence of the command. Returns `true` if found.
+
+### version
 
 ```ruby
 version '<version string>'
@@ -90,7 +92,7 @@ verbose
 When enabled, prints all validation info to STDOUT (success) or STDERR (failure).
 You can customize messages in other validator, with `.message(value)` method,
 where value is the parameter provided to the "messaging" validator. If your
-project users `colorize` gem, the output status will be colorized.
+project uses `pastel` gem, the output status will be colorized.
 
 ## Passing blocks to validators
 

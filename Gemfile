@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'colorize'
-
 group :development do
   gem 'bundler-audit'
   gem 'fasterer'
@@ -18,6 +16,7 @@ end
 
 group :test do
   gem 'coveralls'
+  gem 'pastel'
   gem 'rspec'
   gem 'simplecov'
 end

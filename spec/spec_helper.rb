@@ -9,6 +9,7 @@ SimpleCov.formatters = [
 ]
 SimpleCov.minimum_coverage 100
 SimpleCov.start
+require 'pastel'
 require 'checky'
 require 'checky_spec_helpers'
 

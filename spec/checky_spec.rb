@@ -90,7 +90,7 @@ RSpec.describe Checky do
               version '~> 2.0'
               verbose
             end
-          end.to output("Checking for #[InstanceDouble(dummy_command) (anonymous)]....[Binary] \e[0;32;49mOK\e[0m\n")
+          end.to output("Checking for #[InstanceDouble(dummy_command) (anonymous)]....[Binary] \e[32mOK\e[0m\n")
             .to_stdout
         end
       end
@@ -103,15 +103,15 @@ RSpec.describe Checky do
               version '~> 2.0'
               verbose
             end
-          end.to output("Checking #[InstanceDouble(dummy_command) (anonymous)] versi.[Version] \e[0;31;49mFAIL\e[0m\n")
+          end.to output("Checking #[InstanceDouble(dummy_command) (anonymous)] versi.[Version] \e[31mFAIL\e[0m\n")
             .to_stderr
         end
       end
     end
 
     context 'without colors' do
-      before { described_class.colorize = false }
-      after { described_class.colorize = true }
+      before { described_class.pastel = false }
+      after { described_class.pastel = ::Pastel.new }
 
       it 'prints information with success' do
         silence_streams do

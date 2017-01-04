@@ -18,7 +18,7 @@ require 'checky/validators/all'
 require 'checky/checker'
 
 module Checky
-  attr_accessor :colorize
+  attr_accessor :pastel
 
   def check(&block)
     Checker.new.check(&block)
@@ -30,14 +30,14 @@ module Checky
   end
   # :nocov:
 
-  module_function :check, :run, :colorize, :colorize=
+  module_function :check, :run, :pastel, :pastel=
 end
 
 # :nocov:
 begin
-  require 'colorize'
-  Checky.colorize = true
+  require 'pastel'
+  Checky.pastel = ::Pastel.new
 rescue LoadError
-  Checky.colorize = false
+  Checky.pastel = false
 end
 # :nocov:
